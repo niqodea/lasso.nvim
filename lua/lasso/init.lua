@@ -71,4 +71,22 @@ function M.open_marks_tracker()
 end
 
 
+-- LASSO TERMINALS
+
+
+local terminal_bufnrs = {}
+
+function M.open_terminal(n)
+    local bufnr = terminal_bufnrs[n]
+
+    if bufnr and vim.api.nvim_buf_is_valid(bufnr) then
+        vim.api.nvim_win_set_buf(0, bufnr)
+        return
+    end
+
+    vim.cmd('terminal')
+    terminal_bufnrs[n] = vim.api.nvim_get_current_buf()
+end
+
+
 return M
